@@ -1,6 +1,6 @@
 #' @title Find Shapefiles
 #'
-#' @descriptio
+#' @description
 #' Find files within a path which end with ".shp"
 #'
 #' @param path Path where to find th files.
