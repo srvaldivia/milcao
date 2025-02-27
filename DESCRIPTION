@@ -1,9 +1,9 @@
 Package: milcao
-Title: What the Package Does (One Line, Title Case)
+Title: Handy Functions and Operators
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Sebastián", "Valdivia", email = "srvaldiv@uc.cl", role = c("aut", "cre"))
+Description: A set of tools (functions and operators) to make my life easier.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
