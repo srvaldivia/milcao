@@ -1,12 +1,16 @@
 Package: milcao
-Title: What the Package Does (One Line, Title Case)
+Title: Handy Functions and Operators To Make My Life Earier
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: person("Sebastián", "Valdivia", email = "srvaldiv@uc.cl", 
+                  role = c("aut", "cre"))
+Description: Provides a set of different tools (such as functions and operators)
+    and datasets to solve daily task related to spatial data science.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports: 
+    cli (>= 3.6.2)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
