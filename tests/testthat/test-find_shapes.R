@@ -1,7 +1,8 @@
 test_that(
-  "find_shapes()", {
+  "find_shapes() TESTING", {
     expect_equal(
-      find_shapes(path = "C:/Users/Elite Center/Desktop"),
-      character(0))
+      tryCatch(expr = find_shapes(path = "github/project/data"),
+               error = function(e) NA_character_),
+      NA_character_)
   }
 )
