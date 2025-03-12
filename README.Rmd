@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # milcao
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of milcao is to ...
@@ -33,7 +34,17 @@ pak::pak("srvaldivia/milcao")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+``` {r}
 library(milcao)
-## basic example code
+folder <- system.file("shape", package = "sf")
+```
+
+``` {r}
+find_shapes(path = folder)
+find_shapes(path = folder, full = TRUE)
+```
+
+``` {r}
+get_attributes_info(path = folder)
+get_attributes_info(path = folder, subfolder = TRUE)
 ```
