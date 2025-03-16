@@ -60,7 +60,7 @@ get_shape_info <- function(path, all_properties = TRUE, subfolders = FALSE) {
   for (i in shape_paths) {
     cli::cli_status("Reading {.val {basename(i)}}")
     gdal_info <- tryCatch(
-      sf:::gdal_utils(
+      sf::gdal_utils(
         util = "ogrinfo",
         source = i,
         options = "-json",
