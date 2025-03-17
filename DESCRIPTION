@@ -1,5 +1,5 @@
 Package: milcao
-Title: Handy Functions and Operators To Make My Life Earier
+Title: Handy Functions and Operators To Make My Life Easier
 Version: 0.0.0.9000
 Authors@R: person("Sebastián", "Valdivia", email = "srvaldiv@uc.cl", 
                   role = c("aut", "cre"))
@@ -11,9 +11,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     cli (>= 3.6.2),
+    dplyr (>= 1.1.4),
     jsonlite (>= 1.8.8),
     sf (>= 1.0.19),
     stringr (>= 1.5.1),
+    tibble (>= 3.2.1),
     writexl (>= 1.5.1)
 Suggests: 
     testthat (>= 3.0.0)
