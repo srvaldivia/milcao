@@ -17,7 +17,7 @@
 #' # ✖ The path "github/project/data" doesn't exist.
 #' # ℹ Make sure to use an existing folder path.
 #' }
-find_shapes <- function(path, full = FALSE, subfolders) {
+find_shapes <- function(path, full = FALSE, subfolders = FALSE) {
   if (missing(path) || is.null(path) || path == "") {
     cli::cli_abort(c("x" = "Argument {.code path} is missing or empty.",
                      "i" = "Use argument {.code path} to define a valid folder path."))
