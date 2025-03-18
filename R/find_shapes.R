@@ -25,9 +25,9 @@ find_shapes <- function(path, full = FALSE, subfolders = FALSE) {
   if (!dir.exists(path)) {
     cli::cli_abort(c("x" = "The path {.val {path}} doesn't exist.",
                      "i" = "Make sure to use an existing folder path."))
-  } else {
-    norm_path <- enc2utf8(normalizePath(path))
-  }
+  } #else {
+    #norm_path <- enc2utf8(normalizePath(path))
+  #}
   shape_list <- list.files(path = norm_path, pattern = "\\.shp$", full.names = full, recursive = subfolders)
   if (length(shape_list) == 0) {
     cli::cli_warn(c("!" = "No shapefiles found in folder {.val {path}}"))
