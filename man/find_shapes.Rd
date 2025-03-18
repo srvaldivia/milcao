@@ -20,12 +20,8 @@ A \code{character} vector containing the names of the Shapefiles found in the fo
 \code{find_shapes()} searches Shapefiles existing within an existing folder o directory.
 }
 \examples{
-# Error message when using an inexisting path
-\dontrun{
-find_shapes(path = "github/project/data")
+directory <- system.file("extdata", package = "milcao")
+find_shapes(path = directory)
 
-# Error in `find_shapes()`:
-# ✖ The path "github/project/data" doesn't exist.
-# ℹ Make sure to use an existing folder path.
-}
+find_shapes(path = directory, subfolder = TRUE)
 }

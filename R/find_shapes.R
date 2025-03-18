@@ -10,14 +10,10 @@
 #' @export
 #'
 #' @examples
-#' # Error message when using an inexisting path
-#' \dontrun{
-#' find_shapes(path = "github/project/data")
+#' directory <- system.file("extdata", package = "milcao")
+#' find_shapes(path = directory)
 #'
-#' # Error in `find_shapes()`:
-#' # ✖ The path "github/project/data" doesn't exist.
-#' # ℹ Make sure to use an existing folder path.
-#' }
+#' find_shapes(path = directory, subfolder = TRUE)
 find_shapes <- function(path, full = FALSE, subfolders = FALSE) {
   if (missing(path) || is.null(path) || path == "") {
     cli::cli_abort(c("x" = "Argument {.code path} is missing or empty.",
