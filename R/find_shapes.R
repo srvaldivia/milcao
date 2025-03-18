@@ -4,6 +4,7 @@
 #'
 #' @param path `character`. Path to a specific folder.
 #' @param full `logical`. If `FALSE` (the default) the function `find_shapes()` returns only the base file name of each Shapefile found. If `TRUE` it returns the full path name to every Shapefile
+#' @param subfolders `logical`. If `FALSE` (the default) the function `get_attributes_info()` won't search within subfolders. If `TRUE` it returns all Shapefiles stored within the main folder.
 #'
 #' @returns A `character` vector containing the names of the Shapefiles found in the folder path.
 #' @export
