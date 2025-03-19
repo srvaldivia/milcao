@@ -2,3 +2,4 @@
 
 export(find_shapes)
 export(get_attributes_info)
+export(get_shape_info)
