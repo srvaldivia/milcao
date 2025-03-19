@@ -18,9 +18,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/srvaldivia/milcao/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/srvaldivia/milcao/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
-The goal of milcao is to ...
+The goal of milcao is to provide handy functions to handle geospatial data and tools to improve some GIS workflow and analysis.
 
 ## Installation
 
@@ -35,17 +36,25 @@ pak::pak("srvaldivia/milcao")
 
 This is a basic example which shows you how to solve a common problem:
 
-``` {r}
+```{r}
 library(milcao)
-folder <- system.file("shape", package = "sf")
+data_directory <- system.file("extdata", package = "milcao")
 ```
 
-``` {r}
-find_shapes(path = folder)
-find_shapes(path = folder, full = TRUE)
+The function `find_shapes()` can be used to know all the existing Shapefiles within a given directory using its path.
+
+```{r}
+find_shapes(path = data_directory)
 ```
 
-``` {r}
-get_attributes_info(path = folder)
-get_attributes_info(path = folder, subfolder = TRUE)
+By default `find_shapes()` does not search Shapefiles living in any subfolder inside the folder path. However, this can be changed setting `subfolders = TRUE`.
+
+```{r}
+ find_shapes(path = data_directory, subfolders  = TRUE)
+```
+
+Notice that the default behaviour of `find_shapes()` is set to return only the name of every Shapefile. You can add the argument `full = TRUE` to get the full path to each Shapefile.
+
+```{r}
+find_shapes(path = data_directory, subfolders  = TRUE, full = TRUE)
 ```

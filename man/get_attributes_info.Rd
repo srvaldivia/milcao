@@ -2,16 +2,16 @@
 % Please edit documentation in R/get_attributes_info.R
 \name{get_attributes_info}
 \alias{get_attributes_info}
-\title{Get attributes summary from Shapefiles}
+\title{Attributes summary of Shapefiles}
 \usage{
 get_attributes_info(path, subfolders = FALSE, report = NULL)
 }
 \arguments{
 \item{path}{\code{character}. Path to either a Shapefile or to a folder.}
 
-\item{subfolders}{\code{logical}. If \code{FALSE} (the default) and \code{path} argument is set to a folder the function won't search within any existing subfolders.}
+\item{subfolders}{\code{logical}. If \code{FALSE} (the default) and \code{path} points to a folder the function won't search within any existing subfolders.}
 
-\item{report}{\code{character}. Path to an Excel to be created which contains all the attributes found. If there are more than one Shapefile the Excel file will have as many tabs as Shapefiles.}
+\item{report}{\code{character}. Path to an Excel to be created which contains all the attributes found per Shapefile. If there are more than one Shapefile the Excel file will have as many tabs as Shapefiles.}
 }
 \value{
 A \code{tibble} object that stores one every Shapefile attributes.
@@ -22,7 +22,7 @@ A \code{tibble} object that stores one every Shapefile attributes.
 }
 }
 \description{
-Getssearches Shapefiles existing within an existing folder o directory.
+\code{get_attributes_info()} returns a \code{tibble} which summarises all the attributes of either a single Shapefile or a folder containint Shapefiles.
 }
 \examples{
 directory <- system.file("extdata", package = "milcao")

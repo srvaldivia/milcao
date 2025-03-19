@@ -1,10 +1,10 @@
-#' Get attributes summary from Shapefiles
+#' Attributes summary of Shapefiles
 #'
-#' Getssearches Shapefiles existing within an existing folder o directory.
+#' `get_attributes_info()` returns a `tibble` which summarises all the attributes of either a single Shapefile or a folder containint Shapefiles.
 #'
 #' @param path `character`. Path to either a Shapefile or to a folder.
-#' @param subfolders `logical`. If `FALSE` (the default) and `path` argument is set to a folder the function won't search within any existing subfolders.
-#' @param report `character`. Path to an Excel to be created which contains all the attributes found. If there are more than one Shapefile the Excel file will have as many tabs as Shapefiles.
+#' @param subfolders `logical`. If `FALSE` (the default) and `path` points to a folder the function won't search within any existing subfolders.
+#' @param report `character`. Path to an Excel to be created which contains all the attributes found per Shapefile. If there are more than one Shapefile the Excel file will have as many tabs as Shapefiles.
 #'
 #' @returns A `tibble` object that stores one every Shapefile attributes.
 #' * `shape_name`. Name of the Shapefile.
