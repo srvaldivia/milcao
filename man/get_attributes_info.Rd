@@ -7,25 +7,27 @@
 get_attributes_info(path, subfolders = FALSE, report = NULL)
 }
 \arguments{
-\item{path}{\code{character}. Path to either a specific containing Shapefiles or to a Shapefile.}
+\item{path}{\code{character}. Path to either a Shapefile or to a folder.}
 
-\item{subfolders}{\code{logical}. If \code{FALSE} (the default) the function \code{get_attributes_info()} won't search within subfolders. If \code{TRUE} it returns all Shapefiles stored within the main folder.}
+\item{subfolders}{\code{logical}. If \code{FALSE} (the default) and \code{path} argument is set to a folder the function won't search within any existing subfolders.}
 
-\item{report}{\code{character}. Path to an Excel to be created which contains all the attributes data found.}
+\item{report}{\code{character}. Path to an Excel to be created which contains all the attributes found. If there are more than one Shapefile the Excel file will have as many tabs as Shapefiles.}
 }
 \value{
-A \code{list} object that stores one dataframe per shapefile attributes.
+A \code{tibble} object that stores one every Shapefile attributes.
+\itemize{
+\item \code{shape_name}. Name of the Shapefile.
+\item \code{field_name}. Name of each field from a Shapefile.
+\item \code{data_type}. Format of each field.
+}
 }
 \description{
 Getssearches Shapefiles existing within an existing folder o directory.
 }
 \examples{
-# Error message when using an inexisting path
-\dontrun{
-get_attributes_info(path = "github/project/data/survey.shp")
+directory <- system.file("extdata", package = "milcao")
+get_attributes_info(path = directory)
 
-# Error in `get_attributes_info()`:
-# ✖ The path "github/project/data/survey.shp" doesn't exist.
-# ℹ Make sure to use an existing Shapefile path.
-}
+# Set `subfolder = TRUE` to search within any existing subfolder.
+get_attributes_info(path = directory, subfolder = TRUE)
 }
