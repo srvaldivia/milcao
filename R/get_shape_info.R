@@ -1,4 +1,35 @@
-get_shape_info <- function(path, all_properties = TRUE, subfolders = FALSE) {
+#' Get vector properties of Shapefile
+#'
+#' Retrieves vector properties of Shapefiles including file name, geometry type, CRS among other.
+#'
+#' @param path `character`. Path to either a Shapefile or to a folder.
+#' @param subfolders `logical`. If `FALSE` (the default) and `path` argument is set to a folder the function won't search within any existing subfolders.
+#'
+#' @returns A `tibble` with the following Shapefile properties:
+#' * `shape_name`. Name of the Shapefile.
+#' * `path`. Path to the Shapefile's folder.
+#' * `format`. Name of the file's format.
+#' * `last_edited_gdal`. Shapefile's last edition date.
+#' * `source_encoding`. Character encoding of the Shapefile's attribute table.
+#' * `row_count`. Number of rows of the Shapefile's attribute table.
+#' * `col_count`. Number of cols of the Shapefile's attribute table.
+#' * `geom_type`. Type of geometry of the Shapefile.
+#' * `has_zm`.¿Does the Shapefile has ZM values? Yes (`TRUE`) or No (`FALSE`)
+#' * `crs_type`. Type of coordinates of the CRS (Geographic or Projected).
+#' * `crs_name`. Name of the CRS.
+#' * `crs_epsg`. EPSG code of the CRS.
+#'
+#'
+#' @export
+#'
+#' @examples
+#' directory <- system.file("extdata", package = "milcao")
+#' get_shape_info(path = directory, subfolder = TRUE)
+#'
+
+#' # Set `subfolder = TRUE` to search within any existing subfolder.
+#' get_shape_info(path = directory, subfolder = TRUE)
+get_shape_info <- function(path, subfolders = FALSE) {
   if (missing(path) || is.null(path)) {
     cli::cli_abort(c(
       "x" = "Argument {.code path} is missing or empty.",
@@ -32,33 +63,35 @@ get_shape_info <- function(path, all_properties = TRUE, subfolders = FALSE) {
     cli::cli_warn(c("!" = "No shapefiles found in folder {.val {path}}."))
     return(invisible(character(0)))
   }
-  layer_name_vct <- as.character()
-  layer_format_vct <- as.character()
-  last_edited_dbf_vct <- as.character()
-  last_edited_b_vct <- as.character()
+  shape_name_vct      <- as.character()
+  path_vct            <- as.character()
+  format_vct          <- as.character()
+  last_edited_vct     <- as.POSIXct(0)
   source_encoding_vct <- as.character()
-  row_count_vct <- as.character()
-  col_count_vct <- as.character()
-  geom_type_vct <- as.character()
-  crs_type_vct <- as.character()
-  crs_name_vct <- as.character()
-  crs_epsg_vct <- as.character()
+  row_count_vct       <- as.character()
+  col_count_vct       <- as.integer()
+  geom_type_vct       <- as.integer()
+  has_zm_vct          <- as.logical()
+  crs_type_vct        <- as.character()
+  crs_name_vct        <- as.character()
+  crs_epsg_vct        <- as.integer()
 
   df_attributes <- tibble::tibble(
-    layer_name = as.character(),
-    layer_format = as.character(),
-    last_edited_dbf = as.character(),
-    last_edited_b = as.character(),
+    shape_name      = as.character(),
+    path            = as.character(),
+    format          = as.character(),
+    last_edited     = as.POSIXct(0),
     source_encoding = as.character(),
-    row_count = as.character(),
-    col_count = as.character(),
-    geom_type = as.character(),
-    crs_type = as.character(),
-    crs_name = as.character(),
-    crs_epsg = as.character()
+    row_count       = as.integer(),
+    col_count       = as.integer(),
+    geom_type       = as.character(),
+    has_zm          = as.logical(),
+    crs_type        = as.character(),
+    crs_name        = as.character(),
+    crs_epsg        = as.integer()
   )
   for (i in shape_paths) {
-    cli::cli_status("Reading {.val {basename(i)}}")
+    # cli::cli_status("Reading {.val {basename(i)}}")
     gdal_info <- tryCatch(
       sf::gdal_utils(
         util = "ogrinfo",
@@ -75,34 +108,36 @@ get_shape_info <- function(path, all_properties = TRUE, subfolders = FALSE) {
       cli::cli_warn(c("x" = "Failed to parse JSON from GDAL output."))
       return(invisible(NULL))
     }
-    layer_name_vct <- gdal_info$layers["name"] |> unlist(use.names = FALSE)
-    layer_format_vct <- gdal_info$driverShortName
+    shape_name_vct <- gdal_info$layers["name"] |> unlist(use.names = FALSE)
+    path_vct <- i
+    format_vct <- gdal_info$driverShortName
 
-    if (names(gdal_info$layers$metadata)[1] == "") {
-      last_edited_dbf_vct <- gdal_info$layers$metadata[[1]]$DBF_DATE_LAST_UPDATE
-    } else {
-      last_edited_dbf_vct <- NA_character_
-      }
-    # last_edited_a_vct <- gdal_info$layers$metadata[1] |> unlist() |> names()
-    last_edited_b_vct <- file.info(i)$mtime |> as.character()
+    last_edited_vct <- file.info(i)$mtime
     source_encoding_vct <- gdal_info$layers$metadata$SHAPEFILE$SOURCE_ENCODING
     row_count_vct <- gdal_info$layers["featureCount"] |>
-      unlist() |>
-      as.character()
+      unlist() #|>
+      #as.character()
     col_count_vct <- gdal_info$layers$fields[[1]]$name |>
-      length() |>
-      as.character()
+      length() #|>
+      #as.character()
     if (!is.null(gdal_info$layers$geometryFields[[1]]$type)) {
       geom_type_vct <- gdal_info$layers$geometryFields[[1]]$type
     } else {
       geom_type_vct <- NA_character_
+    }
+    if (!is.na(geom_type_vct)) {
+      has_zm_vct <- ifelse(test = grepl("[[:alpha:]]+ZM$", x = geom_type_vct),
+                           yes = TRUE,
+                           no = FALSE)
+    } else {
+      has_zm_vct <- NA
     }
 
 
     if (any(is.na(gdal_info$layers$geometryFields[[1]]$coordinateSystem))) {
       crs_type_vct = NA_character_
       crs_name_vct = NA_character_
-      crs_epsg_vct = NA_character_
+      crs_epsg_vct = NA_integer_
     } else {
       if (!is.null(gdal_info$layers$geometryFields[[1]]$coordinateSystem$projjson$type)) {
         crs_type_vct <- gdal_info$layers$geometryFields[[1]]$coordinateSystem$projjson$type
@@ -115,30 +150,27 @@ get_shape_info <- function(path, all_properties = TRUE, subfolders = FALSE) {
           crs_name_vct <- NA_character_
           }
       if (!is.null(gdal_info$layers$geometryFields[[1]]$coordinateSystem$projjson$id$code)) {
-        crs_epsg_vct <- gdal_info$layers$geometryFields[[1]]$coordinateSystem$projjson$id$code |> as.character()
+        crs_epsg_vct <- gdal_info$layers$geometryFields[[1]]$coordinateSystem$projjson$id$code #|> as.character()
         } else {
-          crs_epsg_vct <- NA_character_
+          crs_epsg_vct <- NA_integer_
         }
       }
 
     df_tmp <- tibble::tibble(
-      layer_name = layer_name_vct,
-      layer_format = layer_format_vct,
-      last_edited_dbf = last_edited_dbf_vct,
-      last_edited_b = last_edited_b_vct,
+      shape_name      = shape_name_vct,
+      path            = path_vct,
+      format          = format_vct,
+      last_edited     = last_edited_vct,
       source_encoding = source_encoding_vct,
-      row_count = row_count_vct,
-      col_count = col_count_vct,
-      geom_type = geom_type_vct,
-      crs_type = crs_type_vct,
-      crs_name = crs_name_vct,
-      crs_epsg = crs_epsg_vct
+      row_count       = row_count_vct,
+      col_count       = col_count_vct,
+      geom_type       = geom_type_vct,
+      crs_type        = crs_type_vct,
+      has_zm          = has_zm_vct,
+      crs_name        = crs_name_vct,
+      crs_epsg        = crs_epsg_vct
     )
     df_attributes <- dplyr::rows_append(x = df_attributes, y = df_tmp)
   }
-  if (all_properties == TRUE) {
-    return(df_attributes)
-  } else {
-    return(df_attributes[c("layer_name", "geometry_type", "rows", "columns", "crs_name")])
-  }
+  return(df_attributes)
 }
