@@ -13,7 +13,11 @@
 #' directory <- system.file("extdata", package = "milcao")
 #' find_shapes(path = directory)
 #'
+#' # Set `subfolder = TRUE` to allow to search within any existing subfolder.
 #' find_shapes(path = directory, subfolder = TRUE)
+#'
+#' # `full = TRUE` returns the full Shapefile path.
+#' find_shapes(path = directory, full = TRUE, subfolder = TRUE)
 find_shapes <- function(path, full = FALSE, subfolders = FALSE) {
   if (missing(path) || is.null(path) || path == "") {
     cli::cli_abort(c("x" = "Argument {.code path} is missing or empty.",
