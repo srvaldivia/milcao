@@ -6,6 +6,11 @@
 \usage{
 x \%nin\% y
 }
+\arguments{
+\item{x}{vector with values to be found}
+
+\item{y}{vector with values of reference}
+}
 \value{
 \code{TRUE} or \code{FALSE}
 }
