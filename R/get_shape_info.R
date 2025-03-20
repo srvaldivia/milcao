@@ -14,7 +14,7 @@
 #' * `row_count`. Number of rows of the Shapefile's attribute table.
 #' * `col_count`. Number of cols of the Shapefile's attribute table.
 #' * `geom_type`. Type of geometry of the Shapefile.
-#' * `has_zm`.¿Does the Shapefile has ZM values? Yes (`TRUE`) or No (`FALSE`)
+#' * `has_zm`. ¿Does the Shapefile has ZM values? Yes (`TRUE`) or No (`FALSE`)
 #' * `crs_type`. Type of coordinates of the CRS (Geographic or Projected).
 #' * `crs_name`. Name of the CRS.
 #' * `crs_epsg`. EPSG code of the CRS.
