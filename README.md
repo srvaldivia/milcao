@@ -55,8 +55,8 @@ to get the full path to each Shapefile.
 
 ``` r
 find_shapes(path = data_directory, subfolders  = TRUE, full = TRUE)
-#> [1] "C:/Users/Elite Center/AppData/Local/Temp/Rtmpieyw4Q/temp_libpath3eb03bc31b20/milcao/extdata/boundaries/dpa_comunas.shp"   
-#> [2] "C:/Users/Elite Center/AppData/Local/Temp/Rtmpieyw4Q/temp_libpath3eb03bc31b20/milcao/extdata/boundaries/dpa_provincias.shp"
-#> [3] "C:/Users/Elite Center/AppData/Local/Temp/Rtmpieyw4Q/temp_libpath3eb03bc31b20/milcao/extdata/boundaries/dpa_regiones.shp"  
-#> [4] "C:/Users/Elite Center/AppData/Local/Temp/Rtmpieyw4Q/temp_libpath3eb03bc31b20/milcao/extdata/estaciones_meteorologicas.shp"
+#> [1] "C:/Users/ASUS/AppData/Local/Temp/RtmpSWwHv4/temp_libpath34ec3fa2397b/milcao/extdata/boundaries/dpa_comunas.shp"   
+#> [2] "C:/Users/ASUS/AppData/Local/Temp/RtmpSWwHv4/temp_libpath34ec3fa2397b/milcao/extdata/boundaries/dpa_provincias.shp"
+#> [3] "C:/Users/ASUS/AppData/Local/Temp/RtmpSWwHv4/temp_libpath34ec3fa2397b/milcao/extdata/boundaries/dpa_regiones.shp"  
+#> [4] "C:/Users/ASUS/AppData/Local/Temp/RtmpSWwHv4/temp_libpath34ec3fa2397b/milcao/extdata/estaciones_meteorologicas.shp"
 ```
