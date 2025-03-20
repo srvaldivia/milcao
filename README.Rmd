@@ -32,29 +32,51 @@ You can install the development version of milcao from [GitHub](https://github.c
 pak::pak("srvaldivia/milcao")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Usage
 
 ```{r}
 library(milcao)
-data_directory <- system.file("extdata", package = "milcao")
 ```
 
-The function `find_shapes()` can be used to know all the existing Shapefiles within a given directory using its path.
+### find_shapes()
+
+```{r}
+data_directory <- system.file("extdata", package = "milcao")
+data_directory
+```
+
+The function `find_shapes()` can be used to get a `character` vector containing the names of all Shapefiles present within a given folder.
 
 ```{r}
 find_shapes(path = data_directory)
 ```
 
-By default `find_shapes()` does not search Shapefiles living in any subfolder inside the folder path. However, this can be changed setting `subfolders = TRUE`.
+By default `find_shapes()` does not search in any subfolder inside the folder path. However, this can be changed setting `subfolders = TRUE`. The name of Shapefile living inside a subfolder will include the path relative to the main folder defined in `path`.
 
 ```{r}
  find_shapes(path = data_directory, subfolders  = TRUE)
 ```
 
-Notice that the default behaviour of `find_shapes()` is set to return only the name of every Shapefile. You can add the argument `full = TRUE` to get the full path to each Shapefile.
+Notice that the default behaviour of `find_shapes()` is set to return only the name of every Shapefile. You can include `full = TRUE` to the function to get the full path to each Shapefile.
 
 ```{r}
 find_shapes(path = data_directory, subfolders  = TRUE, full = TRUE)
 ```
+
+### get_shape_info()
+
+Another handy function from milcao is `get_shape_info()` which returns a `tibble` object with several vector properties for each Shapefile found, such as, geometry type, number of rows and cols, CRS name, epgs code among others. See the function documentation to know the full list of properties.
+
+```{r}
+get_shape_info(path = data_directory, subfolders = TRUE)
+```
+
+### get_attribute_info()
+
+This function also creates a `tibble` object which summarises the name of all Shapefiles columns (also refered to fields or attributes), and their data type or format.
+
+```{r}
+get_attributes_info(path = data_directory, subfolders = TRUE)
+```
+
+If needed the argument `report` can be included to define an Excel (.xlsx) file path which will be created with the attribute summary.
